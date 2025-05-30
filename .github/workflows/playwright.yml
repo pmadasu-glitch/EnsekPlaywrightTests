@@ -1,0 +1,56 @@
+# .github/workflows/playwright.yml
+
+name: Playwright Tests
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events to the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "test"
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Action to check out your repository code
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Specify the Node.js version, ensure it's compatible with your project
+
+    - name: Install dependencies
+      run: npm ci # 'npm ci' is preferred over 'npm install' in CI environments for clean installs
+
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps # Installs necessary browser binaries and their dependencies
+
+    - name: Run Playwright tests
+      run: npx playwright test # Executes your Playwright tests
+
+    - name: Upload Playwright test results
+      uses: actions/upload-artifact@v4 # Action to upload artifacts
+      if: always() # Always run this step, even if tests fail, to get the report
+      with:
+        name: playwright-report # Name of the artifact
+        path: playwright-report/ # Path to the Playwright HTML report directory
+        retention-days: 5 # How long to keep the artifact (optional)
+
+    - name: Upload Test Results (JSON/JUnit)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-json
+        path: test-results/ # Path to the raw test results (e.g., JSON, JUnit XML if configured)
+        retention-days: 5

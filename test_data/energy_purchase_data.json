@@ -1,0 +1,40 @@
+{
+  "config": {
+    "baseURL": "https://ensekautomationcandidatetest.azurewebsites.net",
+    "endpoints": {
+      "buyEnergy": "/Energy/Buy",
+      "saleConfirmed": "/Energy/SaleConfirmed",
+      "genericError": "/Error"
+    }
+  },
+  "successfulPurchases": [
+    { "energyType": "Gas", "amount": "100" },
+    { "energyType": "Electricity", "amount": "500" },
+    { "energyType": "Oil", "amount": "5" }
+  ],
+  "invalidInputs": [
+    {
+      "type": "Gas",
+      "value": "abc",
+      "expectedOutcomePage": "genericError",
+      "expectedMessagePart": "An error occurred while processing your request"
+    },
+    {
+      "type": "Gas",
+      "value": "0",
+      "expectedOutcomePage": "saleConfirmed",
+      "expectedMessagePart": "Thank you for your purchase of 0 units of Gas"
+    },
+    {
+      "type": "Electricity",
+      "value": "-5",
+      "expectedOutcomePage": "saleConfirmed",
+      "expectedMessagePart": "Thank you for your purchase of -5 units of Electricity"
+    }
+  ],
+  "initialAvailableAmounts": {
+    "Gas": 3000,
+    "Electricity": 4322,
+    "Oil": 15
+  }
+}
