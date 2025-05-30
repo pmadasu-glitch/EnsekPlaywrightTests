@@ -18,7 +18,7 @@ This repository contains an automated test suite for the Ensek application, buil
 ## Project Structure
 
 The project is organized to maintain readability, scalability, and ease of maintenance.
-
+```bash
 ENSEKPLAYWRIGHTTESTS/
 ├── .github/
 │   └── workflows/
@@ -40,7 +40,7 @@ ENSEKPLAYWRIGHTTESTS/
 ├── playwright.config.ts               # Playwright test runner configuration file
 ├── README.md                          # This README file
 └── tsconfig.json                      # TypeScript configuration for the project
-
+```
 
 ## Prerequisites
 
