@@ -29,7 +29,6 @@ test.describe('Buy Energy Functionality', () => {
     await expect(buyEnergyPage.page.getByRole('heading', { name: 'Sale Confirmed!' })).toBeVisible();
   }
 
-
   test.beforeEach(async ({ page }) => {
     buyEnergyPage = new BuyEnergyPage(page, endpoints);
     await page.goto(`${baseURL}${endpoints.buyEnergy}`);
